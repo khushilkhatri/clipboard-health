@@ -3,6 +3,7 @@ import Head from "next/head";
 import Navbar from "../components/_shared/navbar";
 import { Col, Form, Card, Row } from "react-bootstrap";
 import JobBody from "../components/jobBody";
+import Footer from "../components/_shared/footer";
 
 export default function Home() {
   const [filters, updateFilters] = useState({});
@@ -32,7 +33,7 @@ export default function Home() {
         ></link>
       </Head>
       <Navbar></Navbar>
-      <main>
+      <main className="bg-light">
         <Col md={12}>
           <Card body>
             <Form.Control
@@ -119,7 +120,7 @@ export default function Home() {
           </Row>
         </Col>
       </main>
-
+      <Footer />
       {/* <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
