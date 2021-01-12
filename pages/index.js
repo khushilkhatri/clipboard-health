@@ -5,6 +5,10 @@ import { Col, Form, Card, Row } from "react-bootstrap";
 import JobBody from "../components/jobBody";
 import Footer from "../components/_shared/footer";
 
+const getURL = () => {
+  return window.location.origin;
+};
+
 export default function Home() {
   const [filters, updateFilters] = useState({});
   const [search, changeSearch] = useState("");
@@ -13,7 +17,7 @@ export default function Home() {
   };
   useEffect(() => {
     async function loadData() {
-      const response = await fetch("http://localhost:3000/api/filters");
+      const response = await fetch(`${getURL()}/api/filters`);
       const data = await response.json();
       updateFilters(data);
     }
