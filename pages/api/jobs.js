@@ -45,6 +45,7 @@ export default async (req, res) => {
       };
     });
   }
+
   // @todo: implement automated tests
 
   // this timeout emulates unstable network connection, do not remove this one
