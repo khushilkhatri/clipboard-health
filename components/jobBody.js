@@ -10,12 +10,12 @@ const getURL = () => {
 const JobBody = ({ singleJob, search }) => {
   const [jobs, updateJobs] = useState([]);
   const [location, updateLocation] = useState("");
-  // const [role, updateRole] = useState();
+  const [role, updateRole] = useState("");
   const [experience, updateExperience] = useState("");
 
   const loadData = async () => {
     const response = await fetch(
-      `${getURL()}/api/jobs?search=${search}&location=${location}&experience=${experience}`
+      `${getURL()}/api/jobs?search=${search}&location=${location}&experience=${experience}&role=${role}`
     );
     const data = await response.json();
     updateJobs(data);
@@ -23,7 +23,7 @@ const JobBody = ({ singleJob, search }) => {
 
   useEffect(async () => {
     loadData(search);
-  }, [search, location, experience]);
+  }, [search, location, experience, role]);
 
   return (
     <Col md={9} xs={12} sm={12}>
@@ -42,49 +42,49 @@ const JobBody = ({ singleJob, search }) => {
             md={1}
             className={
               "p-0 " +
-              (location && "text-success ") +
-              (location === false && " text-danger")
+              (location === 1 && "text-success ") +
+              (location === -1 && " text-danger")
             }
             onClick={() => {
-              location
-                ? updateLocation(false)
-                : location === false
-                ? updateLocation(undefined)
-                : updateLocation(true);
+              location === 1
+                ? updateLocation(-1)
+                : location === -1
+                ? updateLocation("")
+                : updateLocation(1);
             }}
           >
             location
           </Col>
-          {/* <Col
-            md={1}
-            className={
-              "p-0 " +
-              (role && "text-success ") +
-              (role === false && " text-danger")
-            }
-            onClick={() => {
-              role
-                ? updateRole(false)
-                : role === false
-                ? updateRole(undefined)
-                : updateRole(true);
-            }}
-          >
-            Role
-          </Col> */}
           <Col
             md={1}
             className={
               "p-0 " +
-              (experience && "text-success ") +
-              (experience === false && " text-danger")
+              (role === 1 && "text-success ") +
+              (role === -1 && " text-danger")
             }
             onClick={() => {
-              experience
-                ? updateExperience(false)
-                : experience === false
-                ? updateExperience(undefined)
-                : updateExperience(true);
+              role === 1
+                ? updateRole(-1)
+                : role === -1
+                ? updateRole("")
+                : updateRole(1);
+            }}
+          >
+            Role
+          </Col>
+          <Col
+            md={1}
+            className={
+              "p-0 " +
+              (experience === 1 && "text-success ") +
+              (experience === -1 && " text-danger")
+            }
+            onClick={() => {
+              experience === 1
+                ? updateExperience(-1)
+                : experience === -1
+                ? updateExperience("")
+                : updateExperience(1);
             }}
           >
             Experience

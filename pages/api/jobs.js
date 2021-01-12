@@ -19,39 +19,27 @@ export default async (req, res) => {
       })
     };
   });
-  let { location, experience } = req.query;
+  let { location, experience, role } = req.query;
 
   if (location) {
-    data = data.map(job => {
-      return {
-        ...job,
-        items: job.items.sort((a, b) =>
-          location === "true"
-            ? a.location - b.location
-            : b.location - a.location
-        )
-      };
+    data = data.sort((x, y) => {
+      return x.items[0].zip < y.items[0].zip ? -1 * location : 1 * location;
     });
   }
+
   if (experience) {
-    data = data.map(job => {
-      return {
-        ...job,
-        items: job.items.sort((a, b) =>
-          experience === "true"
-            ? a.experience - b.experience
-            : b.experience - a.experience
-        )
-      };
+    data = data.sort((x, y) => {
+      return x.items[0].experience < y.items[0].experience
+        ? -1 * experience
+        : 1 * experience;
     });
   }
 
-  // @todo: implement automated tests
-
-  // this timeout emulates unstable network connection, do not remove this one
-  // you need to figure out how to guarantee that client side will render
-  // correct results even if server-side can't finish replies in the right order
-  // await new Promise((resolve)=>setTimeout(resolve, 1000 * Math.random()));
+  if (role) {
+    data = data.sort((x, y) => {
+      return x.job_title < y.job_title ? -1 * role : 1 * role;
+    });
+  }
 
   res.json(data);
 };
